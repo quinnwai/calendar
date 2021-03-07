@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Calendar Login</title>
+    <meta name="login" content="login page for the news site"/>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="calendar.js"></script>
+    <script src="auth.js"></script>
+</head>
+<body>
+    <div id="box">
+        <h1>Calendar</h1>
+    </div>
+
+    <p>
+        Your one stop for calendar and other scheduling needs. 
+    </p>
+
+    <h2>User Sign-In</h2>
+    <p>
+        Login here as a registered user
+    </p>
+
+    <form id="user_auth">
+        <label>Username: <input type="text" name="username"/> </label>
+        <label>Password: <input type="password" name="password"/> </label>
+        <input type="hidden" name="isUser" value="user"/>
+        <input type="submit" value ="login"/>
+    </form>
+
+    <h2>Guest Sign-In</h2>
+    <p>
+        Want to login in as a guest?
+    </p>
+
+    <form id="guest_auth">
+        Login as guest: <input type="submit" value ="login"/>
+    </form>
+
+    <h2>New Users</h2>
+    <p>
+        Want to register instead?
+    </p>
+   <form id="register">
+        <label>First Name: <input type="text" name="first_name" /> </label> 
+        <label>Last Name: <input type="text" name="last_name" /> </label> <br><br>
+        <label>Username: <input type="text" name="username" /> </label> 
+        <label>Password: <input type="password" name="password" /> </label>
+        <input type="submit" value="register" />
+    </form>
+
+</body> 
+</html>
