@@ -2,23 +2,36 @@
 Check login info using json from SQL db 
 */
 
-//// post XMLHttpRequest request to login w/ user_auth form info ////
-// const login_info = { username: 'hi', password: 'hello' };
-// fetch('/path/to/php/file', {
-//     method: "POST",
-//     body: JSON.stringify(data)
-// })
+//// Send login info to user_auth.php to validate user + create relevant variables ////
+console.log(document.getElementsByClassName("user"));
+let button = document.getElementsByClassName("user")[0].getElementById("login");
+button.addEventListener('click', function(){
+    let user = document.body.getElementsByClassName("user")[0].getElementById("username").textContent;
+    let pass = document.body.getElementsByClassName("user")[0].getElementById("password").textContent;
 
-//// set up event listener to get response with either user or not user ////
-// const pathToPhpFile = 'test.php';
-// const data = { x: 'hi', y: 'hello' };
-// fetch(pathToPhpFile, {
-//     method: "POST",
-//     body: JSON.stringify(data)
-//   })
-//   .then(res => res.json())
-//   .then(response => console.log('Success:', JSON.stringify(response)))
-//   .catch(error => console.error('Error:',error))
+    //debugging
+    console.log(user);
+    console.log(pass);
+
+    // const login_data = { username: user, password: pass };
+    // fetch('/user_auth.php', {
+    //     method: "POST",
+    //     body: JSON.stringify(login_data)
+    // }).then
+
+    //   .then(res => res.json())
+    //   .then(response => console.log('Success:', JSON.stringify(response)))
+    //   .catch(error => console.error('Error:',error))
+});
+
+
+
+
+
+
+
+
+
 
 /* TODO
 if user exists, hide all, trigger event listener for calendar
