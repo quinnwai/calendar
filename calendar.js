@@ -45,8 +45,7 @@ else just the calendar no events
 function Week(initial_d) {
 	"use strict";
 
-	this.sunday = initial_d.getSunday();
-		
+	this.sunday = initial_d.getSunday();		
 	
 	this.nextWeek = function () {
 		return new Week(this.sunday.deltaDays(7));
@@ -69,6 +68,13 @@ function Week(initial_d) {
 	};
 }
 
+let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+let weekDaysText = "";
+for (let i = 0; i < days.length; i++) {
+  weekDaysText += '<th class="calendar-0lax">' + days[i] + '</th>';
+}
+document.getElementById("week-days").innerHTML = weekDaysText;
+
 /** Month
  * 
  * Represents a month.
@@ -90,7 +96,6 @@ function Month(year, month) {
 	
 	this.year = year;
 	this.month = month;
-	
 	this.nextMonth = function () {
 		return new Month( year + Math.floor((month+1)/12), (month+1) % 12);
 	};
@@ -120,7 +125,11 @@ function Month(year, month) {
 }
 
 // For our purposes, we can keep the current month in a variable in the global scope
-var currentMonth = new Month(2021, 2); //  March 2021
+let currentMonth = new Month(2021, 2); //  March 2021
+let currentMonthText = currentMonth.month + "/" + currentMonth.year;
+document.getElementById("current-month-text").innerHTML += currentMonthText;
+console.log(currentMonth);
+console.log(currentMonth.getWeeks());
 
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event){
