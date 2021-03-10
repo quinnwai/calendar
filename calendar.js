@@ -68,6 +68,9 @@ function Week(initial_d) {
 	};
 }
 
+// let currentWeek = new Week(9);
+// console.log(currentWeek.sunday);
+
 let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let weekDaysText = "";
 for (let i = 0; i < days.length; i++) {
@@ -126,10 +129,56 @@ function Month(year, month) {
 
 // For our purposes, we can keep the current month in a variable in the global scope
 let currentMonth = new Month(2021, 2); //  March 2021
-let currentMonthText = currentMonth.month + "/" + currentMonth.year;
+let currentMonthText = currentMonth.month + 1 + "/" + currentMonth.year;
 document.getElementById("current-month-text").innerHTML += currentMonthText;
-console.log(currentMonth);
 console.log(currentMonth.getWeeks());
+let currentWeek = new Week(currentMonth.getDateObject(1));
+
+let prevSunday = currentWeek.sunday.getDate();
+
+let firstDayOfMonth = currentMonth.getDateObject(1).getDay();
+
+let dayOfMonth = firstDayOfMonth;
+
+let flag = 0;
+let week = 0;
+while (flag < 2) {
+    let weekText = '<tr id = "week-display' + week + '">';
+    document.getElementById("month-display").innerHTML += weekText;
+
+let j = 0;
+while (j < 7) {
+
+    for (let i = 0; i < firstDayOfMonth; i++) {
+        let emptyRows = '<td class="calendar-0lax">' + "" + '</td>';
+        document.getElementById("week-display" + week).innerHTML += emptyRows;
+        j++;
+        
+    }
+    firstDayOfMonth = 0;
+    let date = currentMonth.getDateObject(dayOfMonth).getDate();
+    if (date == 1) {     
+        flag++;
+    }
+    if (flag < 2) {
+    let dateText =  '<td class="calendar-0lax">' + date + '</td>'; 
+    document.getElementById("week-display" + week).innerHTML += dateText;
+    dayOfMonth++;
+    j++;
+    }
+    else {
+        let emptyRows = '<td class="calendar-0lax">' + "" + '</td>';
+        document.getElementById("week-display" + week).innerHTML += emptyRows;
+        j++;
+    }
+}
+    document.getElementById("month-display").innerHTML += "</tr>";
+    week++;
+}
+
+
+console.log(currentWeek.sunday.getDate());
+console.log(currentMonth.getDateObject(1));
 
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event){
