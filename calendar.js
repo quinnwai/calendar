@@ -132,10 +132,13 @@ initCalendar();
 displayCalendarData(currentMonth);
 
 
+//initialises calendar with 7 colums and 6 rows
 function initCalendar() {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
+        //giving each table tow appropriate username
         document.getElementById("month-display").innerHTML += '<tr id="week-display' + i + '"></tr>';
         for (let j = 0; j < 7; j++) {
+            //giving each table cell appropriate username
             let emptyRows = '<td id = "day-display' + i + "," + j + '" class="calendar-0lax">' + "" + '</td>';
             document.getElementById("week-display" + i).innerHTML += emptyRows;
         }
@@ -143,6 +146,7 @@ function initCalendar() {
 }
 
 function displayCalendarData(currentMonth) {
+    //falg to know when to stop 
     let flag = 0;
     let firstDayOfMonth = currentMonth.getDateObject(1).getDay();
 
@@ -155,7 +159,7 @@ function displayCalendarData(currentMonth) {
         document.getElementById("day-display" + 0 + "," + k).innerHTML = "";
     }
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         for (let j = 0; j < 7; j++) {
             j += firstDayOfMonth;
 
@@ -167,6 +171,9 @@ function displayCalendarData(currentMonth) {
             if (flag < 2) {
             document.getElementById("day-display" + i + "," + j).innerHTML = date;
             dayOfMonth++;
+            }
+            else {
+                document.getElementById("day-display" + i + "," + j).innerHTML = "";
             }
         }
     }
