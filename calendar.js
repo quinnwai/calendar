@@ -146,21 +146,28 @@ function initCalendar() {
 }
 
 function displayCalendarData(currentMonth) {
-    //falg to know when to stop 
+    //flag to know when to stop.. when the month ends
     let flag = 0;
+
+    //first day of month so it can be filled with empty cells
     let firstDayOfMonth = currentMonth.getDateObject(1).getDay();
 
+    //start with first day of month
     let dayOfMonth = 1;
 
+    //update header which displays current month
     let currentMonthText = currentMonth.month + 1 + "/" + currentMonth.year;
     document.getElementById("current-month-text").innerHTML ="Current Month: " + currentMonthText;
         
+    //empty cells for all dates before the first of the month
     for (let k = 0; k < firstDayOfMonth; k++) {
         document.getElementById("day-display" + 0 + "," + k).innerHTML = "";
     }
 
+
     for (let i = 0; i < 6; i++) {
         for (let j = 0; j < 7; j++) {
+            //skip through empty cells
             j += firstDayOfMonth;
 
             firstDayOfMonth = 0;
@@ -168,11 +175,14 @@ function displayCalendarData(currentMonth) {
              if (date == 1) {     
                 flag++;
             }
+            //flag value of 2 signifies end of month
             if (flag < 2) {
             document.getElementById("day-display" + i + "," + j).innerHTML = date;
+            //increment day
             dayOfMonth++;
             }
             else {
+                //empty cells for every cell after the real month data ends
                 document.getElementById("day-display" + i + "," + j).innerHTML = "";
             }
         }
