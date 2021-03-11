@@ -127,64 +127,65 @@ function Month(year, month) {
 	};
 }
 
-// For our purposes, we can keep the current month in a variable in the global scope
 let currentMonth = new Month(2021, 2); //  March 2021
-let currentMonthText = currentMonth.month + 1 + "/" + currentMonth.year;
-document.getElementById("current-month-text").innerHTML += currentMonthText;
-console.log(currentMonth.getWeeks());
-let currentWeek = new Week(currentMonth.getDateObject(1));
+initCalendar();
+displayCalendarData(currentMonth);
 
-let prevSunday = currentWeek.sunday.getDate();
 
-let firstDayOfMonth = currentMonth.getDateObject(1).getDay();
+function initCalendar() {
+    for (let i = 0; i < 5; i++) {
+        document.getElementById("month-display").innerHTML += '<tr id="week-display' + i + '"></tr>';
+        for (let j = 0; j < 7; j++) {
+            let emptyRows = '<td id = "day-display' + i + "," + j + '" class="calendar-0lax">' + "" + '</td>';
+            document.getElementById("week-display" + i).innerHTML += emptyRows;
+        }
+    }
+}
 
-let dayOfMonth = firstDayOfMonth;
+function displayCalendarData(currentMonth) {
+    let flag = 0;
+    let firstDayOfMonth = currentMonth.getDateObject(1).getDay();
 
-let flag = 0;
-let week = 0;
-while (flag < 2) {
-    let weekText = '<tr id = "week-display' + week + '">';
-    document.getElementById("month-display").innerHTML += weekText;
+    let dayOfMonth = 1;
 
-let j = 0;
-while (j < 7) {
-
-    for (let i = 0; i < firstDayOfMonth; i++) {
-        let emptyRows = '<td class="calendar-0lax">' + "" + '</td>';
-        document.getElementById("week-display" + week).innerHTML += emptyRows;
-        j++;
+    let currentMonthText = currentMonth.month + 1 + "/" + currentMonth.year;
+    document.getElementById("current-month-text").innerHTML ="Current Month: " + currentMonthText;
         
+    for (let k = 0; k < firstDayOfMonth; k++) {
+        document.getElementById("day-display" + 0 + "," + k).innerHTML = "";
     }
-    firstDayOfMonth = 0;
-    let date = currentMonth.getDateObject(dayOfMonth).getDate();
-    if (date == 1) {     
-        flag++;
-    }
-    if (flag < 2) {
-    let dateText =  '<td class="calendar-0lax">' + date + '</td>'; 
-    document.getElementById("week-display" + week).innerHTML += dateText;
-    dayOfMonth++;
-    j++;
-    }
-    else {
-        let emptyRows = '<td class="calendar-0lax">' + "" + '</td>';
-        document.getElementById("week-display" + week).innerHTML += emptyRows;
-        j++;
+
+    for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 7; j++) {
+            j += firstDayOfMonth;
+
+            firstDayOfMonth = 0;
+            let date = currentMonth.getDateObject(dayOfMonth).getDate();
+             if (date == 1) {     
+                flag++;
+            }
+            if (flag < 2) {
+            document.getElementById("day-display" + i + "," + j).innerHTML = date;
+            dayOfMonth++;
+            }
+        }
     }
 }
-    document.getElementById("month-display").innerHTML += "</tr>";
-    week++;
-}
-
-
-console.log(currentWeek.sunday.getDate());
-console.log(currentMonth.getDateObject(1));
 
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event){
 	currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-	alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+    displayCalendarData(currentMonth);
+	alert("The new month is "+ (currentMonth.month + 1) +" "+currentMonth.year);
+}, false);
+
+// Change the month when the "prev" button is pressed
+document.getElementById("prev_month_btn").addEventListener("click", function(event){
+	currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
+	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+    displayCalendarData(currentMonth);
+	alert("The new month is "+ (currentMonth.month + 1) +" "+currentMonth.year);
 }, false);
 
 
@@ -197,7 +198,7 @@ function updateCalendar(){
 		var days = weeks[w].getDates();
 		// days contains normal JavaScript Date objects.
 		
-		alert("Week starting on "+days[0]);
+		// alert("Week starting on "+days[0]);
 		
 		for(var d in days){
 			// You can see console.log() output in your JavaScript debugging tool, like Firebug,
