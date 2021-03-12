@@ -34,7 +34,6 @@ $json_obj = json_decode($json_str, true);
 
 //Access json object (associative array)
 $user = (string) $json_obj['user'];
-$user = (string) $json_obj['token'];
 
 // csrf vibe check
 require 'get_token.php';
