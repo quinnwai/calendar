@@ -178,6 +178,7 @@ function displayCalendarData(currentMonth) {
             //flag value of 2 signifies end of month
             if (flag < 2) {
             document.getElementById("day-display" + i + "," + j).innerHTML = date;
+            
             //increment day
             dayOfMonth++;
             }
