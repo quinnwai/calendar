@@ -28,9 +28,22 @@ login_button.addEventListener('click', function(){
         if(response.success){
             alert("welcome " + user + "!");
 
-            //show all the calendar-related stuff
+            //show calendar things + fill events
+            updateCalendar();
+
+
+            /* TODO: do all calendar-related stuff including...
+                - add logout portion (init.js needs setup again)
+                - show add/remove/edit event options (difficulties will arise with remove/edit event options)
+                - hide all login stuff
+            */
+            
+            export { user }; //TODO: make sure works
+            pwd = null;
         }
         else {
+            user = null; //TODO: figure if this works or destroy it
+            pwd = null;
             alert("Incorrect username or password");
         }
     })

@@ -5,7 +5,7 @@
     <title>Calendar Login</title>
     <meta name="login" content="login page for the news site"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- <script src="calendar.js"></script> -->
     <script src="user_auth.js" async></script>
     <script src="register.js" async></script>

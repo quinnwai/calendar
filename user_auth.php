@@ -8,7 +8,7 @@ $json_str = file_get_contents('php://input');
 //This will store the data into an associative array
 $json_obj = json_decode($json_str, true);
 
-//Access json object (associative array) TODO: make sure this works
+//Access json object (associative array)
 $user = (string) $json_obj['username'];
 $pwd_guess = (string) $json_obj['password'];
 
@@ -19,6 +19,18 @@ $pwd_guess = (string) $json_obj['password'];
 // Check to see if the username and password are valid
 // Use a prepared statement
 $stmt = $mysqli->prepare("SELECT COUNT(*), password FROM users WHERE username=?");
+
+//TODO: make sure this works
+if(!$stmt){
+	$error = printf("Query Prep Failed: %s\n", $mysqli->error);
+
+	echo json_encode(array(
+		"success" => false,
+		"message" => $error
+	));
+	
+	exit;
+}
 
 // Bind the parameter (? becomes $username)
 $stmt->bind_param('s', $user);
