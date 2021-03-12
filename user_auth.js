@@ -37,13 +37,12 @@ login_button.addEventListener('click', function(){
                 - show add/remove/edit event options (difficulties will arise with remove/edit event options)
                 - hide all login stuff
             */
-            
-            export { user }; //TODO: make sure works
-            pwd = null;
+
+            // export tokens and username for other files (TODO: make sure works)
+            export let token = data.token;
+            export let user;
         }
         else {
-            user = null; //TODO: figure if this works or destroy it
-            pwd = null;
             alert("Incorrect username or password");
         }
     })
