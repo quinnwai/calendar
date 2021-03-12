@@ -48,13 +48,14 @@ if($count == 1 && password_verify($pwd_guess, $pwd_hash)){
 	$_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32)); 
 
 	echo json_encode(array(
-		"success" => true
+		"success" => true,
+		"token" => $_SESSION['token']
 		//TODO: figure out how to pass csrf token through js (local variable?)
 	));
 }
 else {
 	echo json_encode(array(
-		"success" => false,
+		"success" => false
 	));
 }
 
