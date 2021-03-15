@@ -70,9 +70,6 @@ function Week(initial_d) {
 	};
 }
 
-// let currentWeek = new Week(9);
-// console.log(currentWeek.sunday);
-
 let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 let weekDaysText = "";
 for (let i = 0; i < days.length; i++) {
@@ -133,9 +130,6 @@ let currentMonth = new Month(2021, 2); //  March 2021
 let allEvents = [];
 initCalendar();
 
-console.log(currentMonth.getDateObject(2));
-
-
 //initialises calendar with 7 colums and 6 rows
 function initCalendar() {
     for (let i = 0; i < 6; i++) {
@@ -153,14 +147,6 @@ function initCalendar() {
 function displayCalendarData(currentMonth) {
     //flag to know when to stop.. when the month ends
     let flag = 0;
-	
-	// allEvents.forEach(el => {
-	// 	console.log(el);
-	// 	console.log(el.date_time);
-	// 	if (el.date_time.getMonth() == currentMonth) {
-	// 		monthEvents.push(el);
-	// 	}
-	// });
 	let c = 0;
 
     //first day of month so it can be filled with empty cells
@@ -225,12 +211,9 @@ fetch('load_events.php', {
 .then(res => res.json())
 .then(response => {
 response.forEach(el => {
-	console.log(response);
 	allEvents.push({"dateTime": (el.date_time), "name": el.event_name, "tag": el.tag});
-	console.log(allEvents);
 });
 for(let i = 0; i<allEvents.length; i++){
-	console.log(allEvents[i].dateTime);
 		//check if month matches, display event if it does
 		let month = parseInt(allEvents[i].dateTime.substring(5, 7));
 		//currentMonth + 1 because it starts at 0, while sql starts at 1
@@ -240,7 +223,6 @@ for(let i = 0; i<allEvents.length; i++){
 			let r = Math.floor(box/7);
 			let c = (box % 7-1);
 			let time = allEvents[i].dateTime.substring(11, 16);
-			console.log(time);
 			document.getElementById("day-display" + r + "," + c).innerHTML+= 
 			 "<p>"+ time + " - " + allEvents[i].name + "(" + allEvents[i].tag + ")" + "</p>";
 		}
