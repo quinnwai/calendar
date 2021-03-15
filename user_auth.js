@@ -1,12 +1,11 @@
-/* TODO
-Check login info using json from SQL db 
-*/
+let user = "";
+let token = "";
 
 //// Send login info to user_auth.php to validate user + create relevant variables ////
 let login_button = document.getElementsByClassName("user")[0].getElementsByClassName("login")[0];
 
 login_button.addEventListener('click', function(){
-	let user = String(document.getElementById("user_username").value);
+	user = String(document.getElementById("user_username").value);
     let pwd = String(document.getElementById("user_password").value);
 
     const login_data = { 'username': user, 'password': pwd };
@@ -28,8 +27,11 @@ login_button.addEventListener('click', function(){
         if(response.success){
             alert("welcome " + user + "!");
 
+            //store token
+            token = response.token;
+
             // TODO: show calendar things + fill events
-            initCalendar();
+            updateCalendar();
 
             // hide login stuff
             $(".user").hide();
@@ -43,13 +45,20 @@ login_button.addEventListener('click', function(){
 
             //add event listener for logout button
             document.getElementsByClassName("logout")[0].addEventListener('click', function(){
-                // TODO: call on init calendar
-                updateCalendar();
-
                 // TODO: make sure it works
                 if(typeof user !== 'undefined'){
-                    user = null;
+                    user = "";
+                    
                 }
+                if(typeof user !== 'undefined'){
+                    token = "";
+                }
+
+
+                // TODO: call on calendar
+                updateCalendar();
+
+                
 
                 //delete logout button and show old stuff again
                 $(".logout").remove();
@@ -65,8 +74,8 @@ login_button.addEventListener('click', function(){
             */
 
             // export tokens and username for other files (TODO: make sure works)
-            let token = response.token; // TODO: make sure this is accesible outside of the things
-            // export let user;
+            token = response.token; // TODO: make sure this is accesible outside of the things
+            // export {user, token};
         }
         else {
             alert("Incorrect username or password");
@@ -83,7 +92,6 @@ login_button.addEventListener('click', function(){
 
 
 
-
 /* TODO
 if user exists, hide all, trigger event listener for calendar
 */
@@ -91,3 +99,4 @@ if user exists, hide all, trigger event listener for calendar
 /* TODO
 if not, alert saying username is incorrect
 */
+

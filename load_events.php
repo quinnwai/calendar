@@ -9,15 +9,15 @@ $json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 
 //Access json object (associative array)
-// $user = (string) $json_obj['user'];
+$user = (string) $json_obj['user'];
 
 // csrf vibe check
-// require 'get_token.php';
+require 'get_token.php';
 
 require 'database.php'; 
 
 // debugging: making sure that this works in aws first
-$user = 'firstlast';
+// $user = 'firstlast';
 
 //TODO: require CSRF authentication
 // require '';

@@ -1,15 +1,85 @@
-/* TODO
-Add event listener for successful login, 1 variable for logged-in, 1 for show calendar (uncertain how to do that)
-also TODO: ensure there's no security issues here
-*/
+let user = "";
+let token = "";
 
-/*
-create calendar layout with 5x7 grid, back button, front button
-if user is logged in, events loaded into boxes (how?)
-else just the calendar no events
-*/
+//// Send login info to user_auth.php to validate user + create relevant variables ////
+let login_button = document.getElementsByClassName("user")[0].getElementsByClassName("login")[0];
 
-// import {user, token } from "./user_auth.js"; // todo get rid
+login_button.addEventListener('click', function(){
+	user = String(document.getElementById("user_username").value);
+    let pwd = String(document.getElementById("user_password").value);
+
+    const login_data = { 'username': user, 'password': pwd };
+    fetch('user_auth.php', {
+        //Add headers
+        // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(login_data)
+    })
+    .then(res => res.json())
+    .then(response => {
+        console.log('Success:', response);
+
+        //if successful login, alert and redirect to calendar page, else alert
+        if(response.success){
+            alert("welcome " + user + "!");
+
+            // TODO: show calendar things + fill events
+            updateCalendar();
+
+            // hide login stuff
+            $(".user").hide();
+            $(".registration").hide();
+
+            // create logout button
+            const logout_button = document.createElement("button");
+            logout_button.className = "logout";
+            logout_button.appendChild(document.createTextNode("logout"));
+            document.body.appendChild(logout_button);
+
+            //add event listener for logout button
+            document.getElementsByClassName("logout")[0].addEventListener('click', function(){
+                // TODO: make sure it works
+                if(typeof user !== 'undefined'){
+                    user = "";
+                    
+                }
+                if(typeof token !== 'undefined'){
+                    token = "";
+                }
+                
+                // TODO: call on update calendar
+                updateCalendar();
+
+                //delete logout button and show old stuff again
+                $(".logout").remove();
+                $(".user").show();
+                $(".registration").show();
+            });
+
+
+            /* TODO: do all calendar-related stuff including...
+                - create logout button w/ event listener
+                - show add/remove/edit event options
+                - hide all login stuff
+            */
+
+            // export tokens and username for other files (TODO: make sure works)
+            token = response.token; // TODO: make sure this is accesible outside of the things
+            // export {user, token};
+        }
+        else {
+            alert("Incorrect username or password");
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+
+/*                  CALENDAR                        */
 
 (function () {
 	"use strict";
@@ -262,11 +332,11 @@ function updateCalendar(){
 		
 		// alert("Week starting on "+days[0]);
 		
-		for(var d in days){
-			// You can see console.log() output in your JavaScript debugging tool, like Firebug,
-			// WebWit Inspector, or Dragonfly.
-			console.log(days[d].toISOString());
-		}
+		// for(var d in days){
+		// 	// You can see console.log() output in your JavaScript debugging tool, like Firebug,
+		// 	// WebWit Inspector, or Dragonfly.
+		// 	console.log(days[d].toISOString());
+		// }
 	}
 	 displayCalendarData(currentMonth);
 }

@@ -6,10 +6,6 @@
     <meta name="login" content="login page for the news site"/>
     <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- <script src="calendar.js"></script> -->
-    <script src="user_auth.js" async></script>
-    <script src="register.js" async></script>
-    
 </head>
 <body>
 
@@ -45,31 +41,27 @@
 <label>Username: <input type="text" id="new_username" /> </label> 
 <label>Password: <input type="password" id="new_password" /> </label>
 <button id ="register">register</button>
+</div>
+<br>
 
-    <div id="box">
-        <h1>Calendar</h1>
-    </div>
-
-    <p>
-        Le Calendar
-    </p>
-
-    <table id="calendar" class="calendar">
-        <thead>
-            <td id="current-month-text" colspan="7"> </tr>
-            <tr id = "week-days">
-            </tr>
-        </thead>
-        <tbody id = "month-display">
-           
-        </tbody>
-    </table>
+<table id="calendar" class="calendar">
+    <thead>
+        <td id="current-month-text" colspan="7"> </tr>
+        <tr id = "week-days">
+        </tr>
+    </thead>
+    <tbody id = "month-display">
+        
+    </tbody>
+</table>
 
 
-<button id="prev_month_btn">Prevoious Month</button>
+<button id="prev_month_btn">Previous Month</button>
 <button id="next_month_btn">Next Month</button>
 
-</div>
-</body> 
-<script src="calendar.js"></script>
+</body>
+    <!-- <script src="user_auth.js"></script>   -->
+    <script src="register.js"></script>
+    <script src="combined.js"></script>
+    <!-- <script src="calendar.js"></script> -->
 </html>
