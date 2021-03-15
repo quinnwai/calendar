@@ -28,19 +28,45 @@ login_button.addEventListener('click', function(){
         if(response.success){
             alert("welcome " + user + "!");
 
-            //show calendar things + fill events
-            updateCalendar();
+            // TODO: show calendar things + fill events
+            initCalendar();
+
+            // hide login stuff
+            $(".user").hide();
+            $(".registration").hide();
+
+            // create logout button
+            const logout_button = document.createElement("button");
+            logout_button.className = "logout";
+            logout_button.appendChild(document.createTextNode("logout"));
+            document.body.appendChild(logout_button);
+
+            //add event listener for logout button
+            document.getElementsByClassName("logout")[0].addEventListener('click', function(){
+                // TODO: call on init calendar
+                updateCalendar();
+
+                // TODO: make sure it works
+                if(typeof user !== 'undefined'){
+                    user = null;
+                }
+
+                //delete logout button and show old stuff again
+                $(".logout").remove();
+                $(".user").show();
+                $(".registration").show();
+            });
 
 
             /* TODO: do all calendar-related stuff including...
-                - add logout portion (init.js needs setup again)
-                - show add/remove/edit event options (difficulties will arise with remove/edit event options)
+                - create logout button w/ event listener
+                - show add/remove/edit event options
                 - hide all login stuff
             */
 
             // export tokens and username for other files (TODO: make sure works)
-            export let token = login_data.token;
-            export let user;
+            let token = response.token; // TODO: make sure this is accesible outside of the things
+            // export let user;
         }
         else {
             alert("Incorrect username or password");

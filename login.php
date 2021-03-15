@@ -35,15 +35,7 @@
 </div>
 
 
-<!-- guest authentication -->
-<div class="guest">
-    <h2>Guest Sign-In</h2>
-    <p>Don't have an account?</p>
-    Proceed as guest: <button id ="login">guest login</button>
-</div>
-
-
-
+<!-- user registration -->
 <div class="registration">
 <h2>New Users</h2>
 <p>Want to make an account?</p>
