@@ -9,6 +9,8 @@ if user is logged in, events loaded into boxes (how?)
 else just the calendar no events
 */
 
+let user = "firstlast";
+
 (function () {
 	"use strict";
 
@@ -128,8 +130,10 @@ function Month(year, month) {
 }
 
 let currentMonth = new Month(2021, 2); //  March 2021
+let allEvents = [];
 initCalendar();
-displayCalendarData(currentMonth);
+
+console.log(currentMonth.getDateObject(2));
 
 
 //initialises calendar with 7 colums and 6 rows
@@ -143,11 +147,21 @@ function initCalendar() {
             document.getElementById("week-display" + i).innerHTML += emptyRows;
         }
     }
+	displayCalendarData(currentMonth);
 }
 
 function displayCalendarData(currentMonth) {
     //flag to know when to stop.. when the month ends
     let flag = 0;
+	
+	// allEvents.forEach(el => {
+	// 	console.log(el);
+	// 	console.log(el.date_time);
+	// 	if (el.date_time.getMonth() == currentMonth) {
+	// 		monthEvents.push(el);
+	// 	}
+	// });
+	let c = 0;
 
     //first day of month so it can be filled with empty cells
     let firstDayOfMonth = currentMonth.getDateObject(1).getDay();
@@ -161,9 +175,8 @@ function displayCalendarData(currentMonth) {
         
     //empty cells for all dates before the first of the month
     for (let k = 0; k < firstDayOfMonth; k++) {
-        document.getElementById("day-display" + 0 + "," + k).innerHTML = "";
+        document.getElementById("day-display" + 0 + "," + k).innerHTML = "";	
     }
-
 
     for (let i = 0; i < 6; i++) {
         for (let j = 0; j < 7; j++) {
@@ -178,7 +191,7 @@ function displayCalendarData(currentMonth) {
             //flag value of 2 signifies end of month
             if (flag < 2) {
             document.getElementById("day-display" + i + "," + j).innerHTML = date;
-            
+			
             //increment day
             dayOfMonth++;
             }
@@ -188,13 +201,57 @@ function displayCalendarData(currentMonth) {
             }
         }
     }
+	loadEventData();
+		
 }
+
+
+//	Code for fetch request... TODO: make sure to import user and token variable
+
+function loadEventData() {
+const eventData = { 'user': user
+// , 'token': token 
+};
+allEvents = [];
+fetch('load_events.php', {
+    // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
+    headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify(eventData)
+})
+.then(res => res.json())
+.then(response => {
+response.forEach(el => {
+	console.log(response);
+	allEvents.push({"dateTime": (el.date_time), "name": el.event_name, "tag": el.tag});
+	console.log(allEvents);
+});
+for(let i = 0; i<allEvents.length; i++){
+	console.log(allEvents[i].dateTime);
+		//check if month matches, display event if it does
+		let month = parseInt(allEvents[i].dateTime.substring(5, 7));
+		//currentMonth + 1 because it starts at 0, while sql starts at 1
+		if (month == (currentMonth.month+1)) {
+			let day = parseInt(allEvents[i].dateTime.substring(8, 10))
+			let box =  day + currentMonth.getDateObject(1).getDay();
+			let r = Math.floor(box/7);
+			let c = (box % 7-1);
+			let time = allEvents[i].dateTime.substring(11, 16);
+			console.log(time);
+			document.getElementById("day-display" + r + "," + c).innerHTML+= 
+			 "<p>"+ time + " - " + allEvents[i].name + "(" + allEvents[i].tag + ")" + "</p>";
+		}
+	}
+})};
+
 
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event){
 	currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    displayCalendarData(currentMonth);
 	alert("The new month is "+ (currentMonth.month + 1) +" "+currentMonth.year);
 }, false);
 
@@ -202,7 +259,6 @@ document.getElementById("next_month_btn").addEventListener("click", function(eve
 document.getElementById("prev_month_btn").addEventListener("click", function(event){
 	currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    displayCalendarData(currentMonth);
 	alert("The new month is "+ (currentMonth.month + 1) +" "+currentMonth.year);
 }, false);
 
@@ -224,4 +280,5 @@ function updateCalendar(){
 			console.log(days[d].toISOString());
 		}
 	}
+	 displayCalendarData(currentMonth);
 }

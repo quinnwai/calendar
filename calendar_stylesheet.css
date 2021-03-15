@@ -17,9 +17,10 @@
             border-style: solid;
             border-width: 1px;
             font-family: Arial, sans-serif;
+            width: 100px;
             font-size: 14px;
             overflow: hidden;
-            padding: 10px 17px;
+            padding: 10px 10px;
             word-break: normal;
             border: double;
         }
@@ -32,7 +33,7 @@
             font-size: 14px;
             font-weight: normal;
             overflow: hidden;
-            padding: 10px 17px;
+            padding: 10px 10px;
             word-break: normal;
             border: double;
         }

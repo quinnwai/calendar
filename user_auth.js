@@ -39,7 +39,7 @@ login_button.addEventListener('click', function(){
             */
 
             // export tokens and username for other files (TODO: make sure works)
-            export let token = data.token;
+            export let token = login_data.token;
             export let user;
         }
         else {
