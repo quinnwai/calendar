@@ -32,3 +32,48 @@ li {
 form.row {
     display: inline;
 }
+
+
+ .calendar {
+            border-collapse: collapse;
+            border-spacing: 0;
+            background-color: blanchedalmond;
+            border: double;
+        }
+    
+        .calendar td {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            width: 100px;
+            font-size: 14px;
+            overflow: hidden;
+            padding: 10px 10px;
+            word-break: normal;
+            border: double;
+        }
+    
+	    .calendar th {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            overflow: hidden;
+            padding: 10px 10px;
+            word-break: normal;
+            border: double;
+        }
+    
+        .calendar .calendar-ltad {
+            font-size: 14px;
+            text-align: left;
+            vertical-align: top
+        }
+    
+        .calendar .calendar-0lax {
+            text-align: left;
+            vertical-align: top
+        }
