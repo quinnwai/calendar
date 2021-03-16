@@ -13,18 +13,12 @@ $json_obj = json_decode($json_str, true);
 // TODO: csrf vibe check
 require 'get_token.php';
 
-// TODO: make sure tag is one of the enum values 
-// Source: https://stackoverflow.com/questions/2350052/how-can-i-get-enum-possible-values-in-a-mysql-database
-
-
 // // do actual work of inserting event into SQL
-$stmt = $mysqli->prepare("UPDATE `events` SET `date_time`=?, `event_name`=?, `tag`=? where `id`=? AND `username`=?");
+$stmt = $mysqli->prepare("DELETE FROM `events` WHERE `id`=? AND `username`=?");
 
-$date = DateTime::createFromFormat('Y-m-d\TH:i', (string) $json_obj['date'])->format('Y-m-d H:i:s');
-$event_name = (string) $json_obj['event_name'];
-$user = (string) $json_obj['user'];
-$tag = (string) $json_obj['tag']; //TODO: need to somehow have enum in html or check tag here
+// store variables from json
 $id = (int) $json_obj['id'];
+$user = (string) $json_obj['user'];
 
 if(!$stmt){
 	$error = printf("Query Prep Failed: %s\n", $mysqli->error);
@@ -37,7 +31,7 @@ if(!$stmt){
 }
 
 // bind parameters to execute sql query
-$stmt->bind_param('sssss', $date, $event_name, $tag, $id, $user);
+$stmt->bind_param('ss', $id, $user);
 $stmt->execute();
 $stmt->close();
 
@@ -45,5 +39,5 @@ $stmt->close();
 echo json_encode(array(
     "success" => true
 ));
-
 exit;
+?>

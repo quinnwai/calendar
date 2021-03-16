@@ -377,10 +377,32 @@ for(let i = 0; i<allEvents.length; i++){
             }, false);
            
             document.getElementById("d" +allEvents[i].id).addEventListener("click", function(event){
+
                //TODO: send out delete request
-            //    const data = { 'user': user, csrf}; //debug
-            //    console.log(data); //debug
-            //    fetch('delete_event.php',)
+               console.log(allEvents[i].id);
+               const data = { 'user': user, 'id': allEvents[i].id, 'token': token};
+               console.log(data); //debug
+
+               fetch('delete_event.php', {
+                //Add headers
+                // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(response => {
+                if(response.success){
+                    alert("Successfully deleted the event!");
+                    updateCalendar();
+                }
+                else{
+                    alert(response.message);
+                }
+            });
             }, false);
 		}
 	}
