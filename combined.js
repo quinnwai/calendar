@@ -274,7 +274,7 @@ function displayCalendarData(currentMonth) {
 let tag_display = true;
 
 //	Code for fetch request... TODO: make sure to import user and token variable
-document.getElementsByClassName("tag_display").addEventListener("click", function(event){
+document.getElementsByClassName("tag_display")[0].addEventListener("click", function(event){
 	tag_display = !tag_display // Previous month would be currentMonth.prevMonth()
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
 	alert("The tag display mode has been changed");
@@ -318,12 +318,18 @@ for(let i = 0; i<allEvents.length; i++){
 			 }
 			 
 			 document.getElementById("day-display" + r + "," + c).innerHTML+= "</p>"
-			 +"<button id = e" + "allEvents[i].id> Edit </button>"
-			 +"<button id = d" + "allEvents[i].id> Delete </button>";
+			 +"<button id = e" + allEvents[i].id + "> Edit </button>"
+			 +"<button id = d" + allEvents[i].id + "> Delete </button>";
+             document.getElementById("e" +allEvents[i].id).addEventListener("click", function(event){
+                //TODO: show event form
+            }, false);
+           
+            document.getElementById("d" +allEvents[i].id).addEventListener("click", function(event){
+               //TODO: send out delete request
+            }, false);
 		}
 	}
 })};
-
 
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event){
