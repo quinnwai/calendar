@@ -271,7 +271,14 @@ function displayCalendarData(currentMonth) {
 	}	
 }
 
+let tag_display = true;
 
+//	Code for fetch request... TODO: make sure to import user and token variable
+document.getElementById("tag-display").addEventListener("click", function(event){
+	tag_display = !tag_display // Previous month would be currentMonth.prevMonth()
+	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+	alert("The tag display mode has been changed");
+}, false);
 //	Code for fetch request... TODO: make sure to import user and token variable
 
 function loadEventData() {
@@ -294,23 +301,27 @@ response.forEach(el => {
 	allEvents.push({"dateTime": (el.date_time), "name": el.event_name, "tag": el.tag});
 });
 for(let i = 0; i<allEvents.length; i++){
-    //check if month matches, display event if it does
-    let month = parseInt(allEvents[i].dateTime.substring(5, 7));
-    //currentMonth + 1 because it starts at 0, while sql starts at 1
-    if (month == (currentMonth.month+1)) {
-        let day = parseInt(allEvents[i].dateTime.substring(8, 10))
-        let box =  day + currentMonth.getDateObject(1).getDay();
-        let r = Math.floor(box/7);
-        let c = (box % 7-1);
-        let time = allEvents[i].dateTime.substring(11, 16);
-        document.getElementById("day-display" + r + "," + c).innerHTML+= 
-        "<p>"+ time + " - " + allEvents[i].name + "(" + allEvents[i].tag + ")" + "</p>"
-        +"<button id = e" + "allEvents[i].id> Edit </button>"
-        +"<button id = d" + "allEvents[i].id> Delete </button>";
-
-        
-    }
-}
+		//check if month matches, display event if it does
+		let month = parseInt(allEvents[i].dateTime.substring(5, 7));
+		//currentMonth + 1 because it starts at 0, while sql starts at 1
+		if (month == (currentMonth.month+1)) {
+			let day = parseInt(allEvents[i].dateTime.substring(8, 10))
+			let box =  day + currentMonth.getDateObject(1).getDay();
+			let r = Math.floor(box/7);
+			let c = (box % 7-1);
+			let time = allEvents[i].dateTime.substring(11, 16);
+			document.getElementById("day-display" + r + "," + c).innerHTML+= 
+			 "<p>"+ time + " - " + allEvents[i].name;
+			 
+			 if (tag_display){
+			 document.getElementById("day-display" + r + "," + c).innerHTML+= "(" + allEvents[i].tag + ")";
+			 }
+			 
+			 document.getElementById("day-display" + r + "," + c).innerHTML+= "</p>"
+			 +"<button id = e" + "allEvents[i].id> Edit </button>"
+			 +"<button id = d" + "allEvents[i].id> Delete </button>";
+		}
+	}
 })};
 
 
