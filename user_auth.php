@@ -1,7 +1,7 @@
 <?php 
 require 'database.php'; 
 
-header("Content-Type: application/json"); // set the MIME Type to application/json
+// header("Content-Type: application/json"); // set the MIME Type to application/json
 
 //Because you are posting the data via fetch(), php has to retrieve it elsewhere.
 $json_str = file_get_contents('php://input');
@@ -43,6 +43,7 @@ $stmt->fetch();
 // Compare the submitted password to the actual password hash
 if($count == 1 && password_verify($pwd_guess, $pwd_hash)){
     session_start();
+	ini_set("session.cookie_httponly", 1);
 	$_SESSION['username'] = $username;
     $_SESSION['isUser'] = true;
 	$_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32)); 

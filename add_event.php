@@ -1,18 +1,14 @@
 <?php 
 session_start();
 ini_set("session.cookie_httponly", 1);
-header("Content-Type: application/json"); // set the MIME Type to application/json
+// header("Content-Type: application/json"); // set the MIME Type to application/json
 
 require 'database.php'; 
-
-// TODO: csrf vibe check
-// require 'get_token.php';
 
 // because you are posting the data via fetch(), php has to retrieve it elsewhere.
 $json_str = file_get_contents('php://input');
 // // this will store the data into an associative array
 $json_obj = json_decode($json_str, true);
-
 
 // make sure not empty
 // echo "checking empties";
@@ -23,6 +19,9 @@ if ($date = "" || $event_name = "" || $user = "" || $tag = ""){
 	));
 	exit;
 }
+
+// TODO: csrf vibe check
+require 'get_token.php';
 
 // TODO: make sure tag is one of the enum values 
 // Source: https://stackoverflow.com/questions/2350052/how-can-i-get-enum-possible-values-in-a-mysql-database

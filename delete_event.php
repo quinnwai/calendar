@@ -10,16 +10,6 @@ $json_str = file_get_contents('php://input');
 // // this will store the data into an associative array
 $json_obj = json_decode($json_str, true);
 
-
-// make sure not empty
-if ($date = "" || $event_name = "" || $user = "" || $tag = ""){
-	echo json_encode(array(
-		"success" => false,
-		"message" => "Make sure to fill out all fields!"
-	));
-	exit;
-}
-
 // TODO: csrf vibe check
 require 'get_token.php';
 
@@ -57,4 +47,3 @@ echo json_encode(array(
 ));
 
 exit;
-?>

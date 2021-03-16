@@ -20,8 +20,8 @@ function edit_event_form(id){
         
         // let id = Integer(edit_event_button.id);
 
-        // const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'token':token };
-        const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'id': id}; //debug
+        const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'id': id, 'token': token };
+        // const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'id': id}; //debug
         console.log(data); //debug
         fetch('edit_event.php', {
             //Add headers
@@ -38,6 +38,12 @@ function edit_event_form(id){
             if(response.success){
                 alert("Event successfully edited!")
                 updateCalendar();
+
+                //get rid of edit event
+                document.getElementById("edit_event_date").value = "";
+                document.getElementById("edit_event_name").value = "";
+                document.getElementById("edit_event_tag").value = "";
+                $(".edit_event").hide();
             }
             else{
                 alert(response.message);
@@ -372,6 +378,9 @@ for(let i = 0; i<allEvents.length; i++){
            
             document.getElementById("d" +allEvents[i].id).addEventListener("click", function(event){
                //TODO: send out delete request
+            //    const data = { 'user': user, csrf}; //debug
+            //    console.log(data); //debug
+            //    fetch('delete_event.php',)
             }, false);
 		}
 	}
@@ -433,7 +442,7 @@ window.addEventListener('load', function () {
 
         for(let i = 0; i<grp.length; i++) {
         // const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'token':token };
-        const data = { 'date': date, 'event_name': event_name, 'user': grp[i], 'tag': tag}; //debug
+        const data = { 'date': date, 'event_name': event_name, 'user': grp[i], 'tag': tag, 'token': token}; //debug
         console.log(data); //debug
         fetch('add_event.php', {
             //Add headers
