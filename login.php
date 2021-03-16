@@ -72,6 +72,7 @@
     Name: <input type="text" id="add_event_name"/>
     Date: <input type="datetime-local" id="add_event_date"/>
     Tag: <input type="text" id="add_event_tag"/>
+    Group Members (Enter usernames with spaces in between them): <input type="text" id="add_event_grp"/>
     <button class="add">Add event</button>
 </div>
 

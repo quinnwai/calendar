@@ -364,9 +364,8 @@ for(let i = 0; i<allEvents.length; i++){
 			 
 			 document.getElementById("day-display" + r + "," + c).innerHTML+= "</p>"
 			 +"<button id = e" + allEvents[i].id + "> Edit </button>"
-			 +"<button id = d" + allEvents[i].id + "> Delete </button>";
+			 +"<button id = d" + allEvents[i].id + " > Delete </button>";
              document.getElementById("e" +allEvents[i].id).addEventListener("click", function(event){
-                //TODO: show event form
                 console.log("edit entered");
                 edit_event_form(allEvents[i].id);
             }, false);
@@ -429,10 +428,12 @@ window.addEventListener('load', function () {
         let user = 'firstlast'; //debug
 
         let tag = String(document.getElementById("add_event_tag").value); //need to figure out what's up with this
-        
+        let grp = String(document.getElementById("add_event_grp").value).split(" ");
+        grp.push(user);
 
+        for(let i = 0; i<grp.length; i++) {
         // const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'token':token };
-        const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag}; //debug
+        const data = { 'date': date, 'event_name': event_name, 'user': grp[i], 'tag': tag}; //debug
         console.log(data); //debug
         fetch('add_event.php', {
             //Add headers
@@ -447,12 +448,14 @@ window.addEventListener('load', function () {
         .then(res => res.json())
         .then(response => {
             if(response.success){
-                alert("Event successfully added!");
+                
                 updateCalendar();
             }
             else{
                 alert(response.message);
             }
         });
+    }
+    alert("Event successfully added!");   
     });
 });
