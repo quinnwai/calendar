@@ -1,2 +1,2 @@
 //hide all calendar elements if necessary
-document.addEventListener()
+$(".add_event").hide();

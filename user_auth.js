@@ -30,7 +30,7 @@ login_button.addEventListener('click', function(){
             //store token
             token = response.token;
 
-            // TODO: show calendar things + fill events
+            // show calendar things + fill events
             updateCalendar();
 
             // hide login stuff
@@ -57,8 +57,6 @@ login_button.addEventListener('click', function(){
 
                 // TODO: call on calendar
                 updateCalendar();
-
-                
 
                 //delete logout button and show old stuff again
                 $(".logout").remove();

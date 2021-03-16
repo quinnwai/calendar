@@ -59,9 +59,18 @@
 <button id="prev_month_btn">Previous Month</button>
 <button id="next_month_btn">Next Month</button>
 
+<div class="add_event">
+    <h2>Add Event</h2>
+    Name: <input type="text" id="add_event_name"/>
+    Date: <input type="datetime-local" id="add_event_date"/>
+    Tag: <input type="text" id="add_event_tag"/>
+    <button class="add">Add event</button>
+</div>
+
 </body>
     <!-- <script src="user_auth.js"></script>   -->
     <script src="register.js"></script>
     <script src="combined.js"></script>
+    <script src="init.js"></script>
     <!-- <script src="calendar.js"></script> -->
 </html>
