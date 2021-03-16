@@ -1,6 +1,52 @@
 let user = "";
 let token = "";
 
+/* ~~~~~~~~~~~Edit Event ~~~~~~~~~~~~ */
+function edit_event_form(id){
+    $(".edit_event").show();
+
+    console.log(document.getElementsByClassName("edit_event")); //debug
+    console.log(document.getElementsByClassName("edit_event")[0].getElementsByClassName("edit")[0]);
+    let edit_event_button = document.getElementsByClassName("edit_event")[0].getElementsByClassName("edit")[0]; //should be in a div
+
+    edit_event_button.addEventListener('click', function(){
+        //assume there are boxes for id 
+        let date = String(document.getElementById("edit_event_date").value); // TODO: make sure date anad time works
+        let event_name = String(document.getElementById("edit_event_name").value);
+
+        // import { user, token } from user_auth.js; //TODO: make sure works w/ list thing
+
+        let tag = String(document.getElementById("edit_event_tag").value); //need to figure out what's up with this
+        
+        // let id = Integer(edit_event_button.id);
+
+        // const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'token':token };
+        const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'id': id}; //debug
+        console.log(data); //debug
+        fetch('edit_event.php', {
+            //Add headers
+            // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(response => {
+            if(response.success){
+                alert("Event successfully edited!")
+                updateCalendar();
+            }
+            else{
+                alert(response.message);
+            }
+        });
+    });
+}
+
+
 //// Send login info to user_auth.php to validate user + create relevant variables ////
 let login_button = document.getElementsByClassName("user")[0].getElementsByClassName("login")[0];
 
@@ -279,7 +325,6 @@ document.getElementsByClassName("tag_display")[0].addEventListener("click", func
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
 	alert("The tag display mode has been changed");
 }, false);
-//	Code for fetch request... TODO: make sure to import user and token variable
 
 function loadEventData() {
 const eventData = { 'user': user
@@ -298,7 +343,7 @@ fetch('load_events.php', {
 .then(res => res.json())
 .then(response => {
 response.forEach(el => {
-	allEvents.push({"dateTime": (el.date_time), "name": el.event_name, "tag": el.tag});
+	allEvents.push({"dateTime": (el.date_time), "name": el.event_name, "tag": el.tag, "id": el.id});
 });
 for(let i = 0; i<allEvents.length; i++){
 		//check if month matches, display event if it does
@@ -322,6 +367,8 @@ for(let i = 0; i<allEvents.length; i++){
 			 +"<button id = d" + allEvents[i].id + "> Delete </button>";
              document.getElementById("e" +allEvents[i].id).addEventListener("click", function(event){
                 //TODO: show event form
+                console.log("edit entered");
+                edit_event_form(allEvents[i].id);
             }, false);
            
             document.getElementById("d" +allEvents[i].id).addEventListener("click", function(event){

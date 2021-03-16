@@ -19,6 +19,14 @@
     Your one stop for calendar and other scheduling needs. 
 </p>
 
+<div class="edit_event">
+    <h2>Edit Event</h2>
+    Name: <input type="text" id="edit_event_name"/>
+    Date: <input type="datetime-local" id="edit_event_date"/>
+    Tag: <input type="text" id="edit_event_tag"/>
+    <button class="edit">Edit event</button>
+</div>
+
 <!-- user authentication -->
 <div class="user">
     <h2>User Sign-In</h2>
@@ -67,7 +75,7 @@
     <button class="add">Add event</button>
 </div>
 
-<button id="tag-display"> Toggle Tag display </button>
+<button class="tag_display"> Toggle Tag display </button>
 
 </body>
     <!-- <script src="user_auth.js"></script>   -->

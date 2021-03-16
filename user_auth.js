@@ -43,6 +43,9 @@ login_button.addEventListener('click', function(){
             logout_button.appendChild(document.createTextNode("logout"));
             document.body.appendChild(logout_button);
 
+            //show toggle tags
+            $(".tag_display").show();
+
             //add event listener for logout button
             document.getElementsByClassName("logout")[0].addEventListener('click', function(){
                 // TODO: make sure it works
