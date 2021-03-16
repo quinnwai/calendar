@@ -253,6 +253,9 @@ function displayCalendarData(currentMonth) {
             //flag value of 2 signifies end of month
             if (flag < 2) {
             document.getElementById("day-display" + i + "," + j).innerHTML = date;
+            // document.getElementById("day-display" + i + "," + j).value = "";
+            // $("#day-display" + i + "," + j).delete();
+            // then append child and date
 			
             //increment day
             dayOfMonth++;
@@ -301,9 +304,11 @@ for(let i = 0; i<allEvents.length; i++){
         let c = (box % 7-1);
         let time = allEvents[i].dateTime.substring(11, 16);
         document.getElementById("day-display" + r + "," + c).innerHTML+= 
-         "<p>"+ time + " - " + allEvents[i].name + "(" + allEvents[i].tag + ")" + "</p>"
-         +"<button id = e" + "allEvents[i].id> Edit </button>"
-         +"<button id = d" + "allEvents[i].id> Delete </button>";
+        "<p>"+ time + " - " + allEvents[i].name + "(" + allEvents[i].tag + ")" + "</p>"
+        +"<button id = e" + "allEvents[i].id> Edit </button>"
+        +"<button id = d" + "allEvents[i].id> Delete </button>";
+
+        
     }
 }
 })};
