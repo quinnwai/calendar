@@ -476,7 +476,7 @@ window.addEventListener('load', function () {
         let user = 'firstlast'; //debug
 
         let tag = String(document.getElementById("add_event_tag").value); //need to figure out what's up with this
-        let grp = String(document.getElementById("add_event_grp").value).split(" ");
+        let grp = String(document.getElementById("add_event_grp").value).split(",");
         grp.push(user);
 
         for(let i = 0; i<grp.length; i++) {

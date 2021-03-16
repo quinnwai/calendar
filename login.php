@@ -19,6 +19,14 @@
     Your one stop for calendar and other scheduling needs. 
 </p>
 
+<!-- <div class="other_calendars">
+    <br>
+    <select name="calendar_options" id="calendar_options">
+  </select>
+    <button class="show_other_cal"> See someone else's calendar </button>
+    <br>
+</div> -->
+
 <div class="edit_event">
     <h2>Edit Event</h2>
     Name: <input type="text" id="edit_event_name"/>
@@ -72,7 +80,7 @@
     Name: <input type="text" id="add_event_name"/>
     Date: <input type="datetime-local" id="add_event_date"/>
     Tag: <input type="text" id="add_event_tag"/>
-    Group Members (Enter usernames with spaces in between them): <input type="text" id="add_event_grp"/>
+    Group Members (Enter usernames with only commas seperating them): <input type="text" id="add_event_grp"/>
     <button class="add">Add event</button>
 </div>
 
