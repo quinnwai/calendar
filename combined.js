@@ -457,8 +457,10 @@ window.addEventListener('load', function () {
         .then(res => res.json())
         .then(response => {
             if(response.success){
-                
+                //for added efficiency - only update calendat if it is at the end of the loop. basically, just update once. 
+                if (i === grp.length - 1) {
                 updateCalendar();
+                }
             }
             else{
                 alert(response.message);
