@@ -433,6 +433,8 @@ window.addEventListener('load', function () {
 
         for(let i = 0; i<grp.length; i++) {
         // const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'token':token };
+
+        //TODO: get all users from fetch statement... and do next fetch only if user exists
         const data = { 'date': date, 'event_name': event_name, 'user': grp[i], 'tag': tag}; //debug
         console.log(data); //debug
         fetch('add_event.php', {
@@ -448,8 +450,10 @@ window.addEventListener('load', function () {
         .then(res => res.json())
         .then(response => {
             if(response.success){
-                
+                //for added efficiency - only update calendat if it is at the end of the loop. basically, just update once. 
+                if (i === grp.length - 1) {
                 updateCalendar();
+                }
             }
             else{
                 alert(response.message);
