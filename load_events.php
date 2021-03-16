@@ -11,8 +11,8 @@ $json_obj = json_decode($json_str, true);
 //Access json object (associative array)
 $user = (string) $json_obj['user'];
 
-// csrf vibe check
-require 'get_token.php';
+// // csrf vibe check
+// require 'get_token.php';
 
 require 'database.php'; 
 
@@ -33,33 +33,14 @@ $stmt->bind_param('s', $user);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// echo $result["json"]
-$i = 0;
+// load in SQL data and 
 $rows = array();
 while ($row = $result->fetch_assoc()) {
+   $row = array_map('htmlentities', $row); // escape output
+
    $rows[] = $row;
-   $i += 1;
 }
-print json_encode($rows);
+print json_encode($rows); // convert to json file type
 
-
-// Bind the parameter(? becomes $user) and get all info
-
-
-// Bind the results
-// echo "{";
-// for($count = 0; $row = $result->fetch_assoc(); ++$count){
-//     if($count != 0){
-//         echo ", ";
-//     }
-//     echo $count;
-//     echo ":";
-// 	echo json_encode($row);
-// }
-// echo "}";
-mysqli_close($stmt);
-
-//send json back
-// echo json_encode($result);
-
+$stmt->close();
 ?>
