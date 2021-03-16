@@ -274,7 +274,7 @@ function displayCalendarData(currentMonth) {
 let tag_display = true;
 
 //	Code for fetch request... TODO: make sure to import user and token variable
-document.getElementById("tag-display").addEventListener("click", function(event){
+document.getElementsByClassName("tag_display").addEventListener("click", function(event){
 	tag_display = !tag_display // Previous month would be currentMonth.prevMonth()
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
 	alert("The tag display mode has been changed");
