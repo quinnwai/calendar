@@ -82,10 +82,11 @@ login_button.addEventListener('click', function(){
             // TODO: show calendar things + fill events
             updateCalendar();
 
-            // hide login info, show add event info
+            // hide login info, show add event info/tag display
             $(".user").hide();
             $(".registration").hide();
             $(".add_event").show();
+            $(".toggle_tag").show();
 
             // create logout button
             const logout_button = document.createElement("button");
@@ -111,6 +112,7 @@ login_button.addEventListener('click', function(){
                 $(".logout").remove();
                 $(".user").show();
                 $(".registration").show();
+                $(".toggle_tag").hide();
             });
 
 
@@ -329,61 +331,67 @@ let tag_display = true;
 document.getElementsByClassName("tag_display")[0].addEventListener("click", function(event){
 	tag_display = !tag_display // Previous month would be currentMonth.prevMonth()
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-	alert("The tag display mode has been changed");
+	// alert("The tag display mode has been changed");
 }, false);
 
+// TODO FIXME
+// function HandleEditSubmit(event) {
+//     console.log(event.target);
+// }
+
 function loadEventData() {
-const eventData = { 'user': user
-// , 'token': token 
-};
-allEvents = [];
-fetch('load_events.php', {
-    // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
-    headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    },
-    method: "POST",
-    body: JSON.stringify(eventData)
-})
-.then(res => res.json())
-.then(response => {
-response.forEach(el => {
-	allEvents.push({"dateTime": (el.date_time), "name": el.event_name, "tag": el.tag, "id": el.id});
-});
-for(let i = 0; i<allEvents.length; i++){
-		//check if month matches, display event if it does
-		let month = parseInt(allEvents[i].dateTime.substring(5, 7));
-		//currentMonth + 1 because it starts at 0, while sql starts at 1
-		if (month == (currentMonth.month+1)) {
-			let day = parseInt(allEvents[i].dateTime.substring(8, 10))
-			let box =  day + currentMonth.getDateObject(1).getDay();
-			let r = Math.floor(box/7);
-			let c = (box % 7-1);
-			let time = allEvents[i].dateTime.substring(11, 16);
-			document.getElementById("day-display" + r + "," + c).innerHTML+= 
-			 "<p>"+ time + " - " + allEvents[i].name;
-			 
-			 if (tag_display){
-			 document.getElementById("day-display" + r + "," + c).innerHTML+= "(" + allEvents[i].tag + ")";
-			 }
-			 
-			 document.getElementById("day-display" + r + "," + c).innerHTML+= "</p>"
-			 +"<button id = e" + allEvents[i].id + "> Edit </button>"
-			 +"<button id = d" + allEvents[i].id + " > Delete </button>";
-             document.getElementById("e" +allEvents[i].id).addEventListener("click", function(event){
+    const eventData = { 'user': user, 'token': token };
+    // console.log("token:", token);
+    allEvents = [];
+    fetch('load_events.php', {
+        // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(eventData)
+    })
+    .then(res => res.json())
+    .then(response => {
+    response.forEach(el => {
+        allEvents.push({"dateTime": (el.date_time), "name": el.event_name, "tag": el.tag, "id": el.id});
+    });
+    for(let i = 0; i<allEvents.length; i++){
+        //check if month matches, display event if it does
+        let month = parseInt(allEvents[i].dateTime.substring(5, 7));
+        //currentMonth + 1 because it starts at 0, while sql starts at 1
+        if (month == (currentMonth.month+1)) {
+            let day = parseInt(allEvents[i].dateTime.substring(8, 10))
+            let box =  day + currentMonth.getDateObject(1).getDay();
+            let r = Math.floor(box/7);
+            let c = (box % 7-1);
+            let time = allEvents[i].dateTime.substring(11, 16);
+            document.getElementById("day-display" + r + "," + c).innerHTML+= 
+            "<p>"+ time + " - " + allEvents[i].name;
+            
+            if (tag_display){
+            document.getElementById("day-display" + r + "," + c).innerHTML+= "(" + allEvents[i].tag + ")";
+            }
+            
+            document.getElementById("day-display" + r + "," + c).innerHTML+= "</p>"
+            +"<button id = e" + allEvents[i].id + "> Edit </button>"
+            +"<button id = d" + allEvents[i].id + " > Delete </button>";
+            document.getElementById("e" +allEvents[i].id).addEventListener("click", function(event){
                 console.log("edit entered");
+                
                 edit_event_form(allEvents[i].id);
             }, false);
-           
+            // document.getElementById("e" +allEvents[i].id).addEventListener("click", HandleEditSubmit);
+            
             document.getElementById("d" +allEvents[i].id).addEventListener("click", function(event){
 
-               //TODO: send out delete request
-               console.log(allEvents[i].id);
-               const data = { 'user': user, 'id': allEvents[i].id, 'token': token};
-               console.log(data); //debug
+            //TODO: send out delete request
+            console.log(allEvents[i].id);
+            const data = { 'user': user, 'id': allEvents[i].id, 'token': token};
+            console.log(data); //debug
 
-               fetch('delete_event.php', {
+            fetch('delete_event.php', {
                 //Add headers
                 // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
                 headers: { 
@@ -404,8 +412,8 @@ for(let i = 0; i<allEvents.length; i++){
                 }
             });
             }, false);
-		}
-	}
+        }
+    }
 })};
 
 // Change the month when the "next" button is pressed

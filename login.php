@@ -76,7 +76,11 @@
     <button class="add">Add event</button>
 </div>
 
-<button class="tag_display"> Toggle Tag display </button>
+<div class="toggle_tag">
+    <br>
+    <button class="tag_display"> Toggle Tag display </button>
+    <br>
+</div>
 
 </body>
     <!-- <script src="user_auth.js"></script>   -->
