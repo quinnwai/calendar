@@ -357,6 +357,7 @@ function loadEventData() {
     response.forEach(el => {
         allEvents.push({"dateTime": (el.date_time), "name": el.event_name, "tag": el.tag, "id": el.id});
     });
+    let monthEvents = []
     for(let i = 0; i<allEvents.length; i++){
         //check if month matches, display event if it does
         let month = parseInt(allEvents[i].dateTime.substring(5, 7));
@@ -377,18 +378,25 @@ function loadEventData() {
             document.getElementById("day-display" + r + "," + c).innerHTML+= "</p>"
             +"<button id = e" + allEvents[i].id + "> Edit </button>"
             +"<button id = d" + allEvents[i].id + " > Delete </button>";
-            document.getElementById("e" +allEvents[i].id).addEventListener("click", function(event){
+        }
+    }
+    allEvents.forEach(el => {
+        //check if month matches, display event if it does
+        let month = parseInt(el.dateTime.substring(5, 7));
+        //currentMonth + 1 because it starts at 0, while sql starts at 1
+        if (month == (currentMonth.month+1)) {
+
+            document.getElementById("e" +el.id).addEventListener("click", function(event){
                 console.log("edit entered");
-                
-                edit_event_form(allEvents[i].id);
+                edit_event_form(el.id);
             }, false);
             // document.getElementById("e" +allEvents[i].id).addEventListener("click", HandleEditSubmit);
             
-            document.getElementById("d" +allEvents[i].id).addEventListener("click", function(event){
+            document.getElementById("d" +el.id).addEventListener("click", function(event){
 
             //TODO: send out delete request
-            console.log(allEvents[i].id);
-            const data = { 'user': user, 'id': allEvents[i].id, 'token': token};
+            console.log(el.id);
+            const data = { 'user': user, 'id': el.id, 'token': token};
             console.log(data); //debug
 
             fetch('delete_event.php', {
@@ -413,8 +421,9 @@ function loadEventData() {
             });
             }, false);
         }
+    });
     }
-})};
+)};
 
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event){
