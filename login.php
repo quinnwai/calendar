@@ -90,9 +90,6 @@
 </div>
 
 </body>
-    <!-- <script src="user_auth.js"></script>   -->
     <script src="register.js"></script>
     <script src="combined.js"></script>
-    <!-- <script src="init.js"></script> -->
-    <!-- <script src="calendar.js"></script> -->
 </html>
