@@ -3,6 +3,8 @@ session_start();
 ini_set("session.cookie_httponly", 1);
 header("Content-Type: application/json"); // set the MIME Type to application/json
 
+require 'database.php'; 
+
 //Because you are posting the data via fetch(), php has to retrieve it elsewhere.
 $json_str = file_get_contents('php://input');
 //This will store the data into an associative array
@@ -14,13 +16,6 @@ $user = (string) $json_obj['user'];
 // csrf vibe check
 require 'get_token.php';
 
-require 'database.php'; 
-
-// debugging: making sure that this works in aws first
-// $user = 'firstlast';
-
-//TODO: require CSRF authentication
-// require '';
 
 // Prepared SQL statement
 $stmt = $mysqli->prepare("SELECT id, date_time, event_name, tag, group_name FROM events WHERE username = ? ORDER BY date_time ASC");

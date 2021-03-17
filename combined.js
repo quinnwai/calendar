@@ -112,6 +112,9 @@ login_button.addEventListener('click', function(){
         if(response.success){
             alert("welcome " + user + "!");
 
+            // update token
+            token = response.token;
+
             // show calendar things + fill events
             updateCalendar();
 
@@ -154,11 +157,6 @@ login_button.addEventListener('click', function(){
                 //delete session variables
                 fetch('logout.php', {});
             });
-
-
-            // export tokens and username for other files 
-            token = response.token; 
-            // export {user, token};
         }
         else {
             alert("Incorrect username or password");
@@ -432,7 +430,7 @@ function displayCalendarData(currentMonth) {
             }
         }
     }
-	if (typeof user !== 'undefined'){
+	if (typeof user !== 'undefined' && user != ""){
 		loadEventData();
 	}	
 }
