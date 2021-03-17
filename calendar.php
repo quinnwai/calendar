@@ -83,7 +83,7 @@
         <option value="sports">sports</option>
         <option value="other">other</option>
   </select>
-    Group Members (Enter usernames with only commas seperating them): <input type="text" id="add_event_grp"/>
+    Group Members (Enter usernames with only commas separating them): <input type="text" id="add_event_grp"/>
     <button class="add">Add event</button>
 </div>
 

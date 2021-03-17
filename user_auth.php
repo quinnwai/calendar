@@ -20,7 +20,7 @@ $pwd_guess = (string) $json_obj['password'];
 // Use a prepared statement
 $stmt = $mysqli->prepare("SELECT COUNT(*), password FROM users WHERE username=?");
 
-//TODO: make sure this works
+// make sure query works
 if(!$stmt){
 	$error = printf("Query Prep Failed: %s\n", $mysqli->error);
 
