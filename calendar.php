@@ -59,9 +59,7 @@
 
 <table id="calendar" class="calendar">
     <thead>
-        <td id="current-month-text" colspan="7"> </tr>
-        <tr id = "week-days">
-        </tr>
+       
     </thead>
     <tbody id = "month-display">
         

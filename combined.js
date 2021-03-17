@@ -234,12 +234,7 @@ function Week(initial_d) {
 	};
 }
 
-let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-let weekDaysText = "";
-for (let i = 0; i < days.length; i++) {
-  weekDaysText += '<th class="calendar-0lax">' + days[i] + '</th>';
-}
-document.getElementById("week-days").innerHTML = weekDaysText;
+
 
 /** Month
  * 
@@ -380,6 +375,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
 //initialises calendar with 7 colums and 6 rows
 function initCalendar() {
+    document.getElementById("month-display").innerHTML += '<tr> <td id="current-month-text" colspan="7"> </td> </tr>';
+    document.getElementById("month-display").innerHTML += '<tr id = "week-days">';
+
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let weekDaysText = "";
+    for (let i = 0; i < days.length; i++) {
+        weekDaysText += '<th class="calendar-0lax">' + days[i] + '</th>';
+    }
+    weekDaysText+= "</tr>";
+    document.getElementById("week-days").innerHTML = weekDaysText;
     for (let i = 0; i < 6; i++) {
         //giving each table tow appropriate username
         document.getElementById("month-display").innerHTML += '<tr id="week-display' + i + '"></tr>';
