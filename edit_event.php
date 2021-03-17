@@ -23,8 +23,7 @@ if ($date = "" || $event_name = "" || $user = "" || $tag = ""){
 // csrf vibe check
 require 'get_token.php';
 
-
-// // do actual work of inserting event into SQL
+// do actual work of inserting event into SQL
 $stmt = $mysqli->prepare("UPDATE `events` SET `date_time`=?, `event_name`=?, `tag`=? where `id`=? AND `username`=?");
 
 $date = DateTime::createFromFormat('Y-m-d\TH:i', (string) $json_obj['date'])->format('Y-m-d H:i:s');

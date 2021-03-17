@@ -37,7 +37,7 @@ document.getElementsByClassName("logout")[0].disabled = true;
             }
             else {
                 document.getElementById("edit_event_name").value = currentEvents[i].name;
-                document.getElementById("edit_event_date").value = currentEvents[i].dateTime.replace(" ", "T");
+                document.getElementById("edit_event_date").value = currentEvents[i].dateTime.replace(" ", "T").slice(0,-3);
                 document.getElementById("edit_event_tag").value =  currentEvents[i].tag;
             }
         }
