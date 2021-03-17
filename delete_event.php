@@ -10,10 +10,10 @@ $json_str = file_get_contents('php://input');
 // // this will store the data into an associative array
 $json_obj = json_decode($json_str, true);
 
-// TODO: csrf vibe check
+// csrf vibe check
 require 'get_token.php';
 
-// // do actual work of inserting event into SQL
+// do actual work of inserting event into SQL
 $stmt = $mysqli->prepare("DELETE FROM `events` WHERE `id`=? AND `username`=?");
 
 // store variables from json

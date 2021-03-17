@@ -20,11 +20,8 @@ if ($date = "" || $event_name = "" || $user = "" || $tag = ""){
 	exit;
 }
 
-// TODO: csrf vibe check
+// csrf vibe check
 require 'get_token.php';
-
-// TODO: make sure tag is one of the enum values 
-// Source: https://stackoverflow.com/questions/2350052/how-can-i-get-enum-possible-values-in-a-mysql-database
 
 
 // // do actual work of inserting event into SQL
@@ -33,7 +30,7 @@ $stmt = $mysqli->prepare("UPDATE `events` SET `date_time`=?, `event_name`=?, `ta
 $date = DateTime::createFromFormat('Y-m-d\TH:i', (string) $json_obj['date'])->format('Y-m-d H:i:s');
 $event_name = (string) $json_obj['event_name'];
 $user = (string) $json_obj['user'];
-$tag = (string) $json_obj['tag']; //TODO: need to somehow have enum in html or check tag here
+$tag = (string) $json_obj['tag'];
 $id = (int) $json_obj['id'];
 
 if(!$stmt){

@@ -19,11 +19,8 @@ if ($date = "" || $event_name = "" || $user = "" || $tag = ""){
 	exit;
 }
 
-// TODO: csrf vibe check
+// csrf vibe check
 require 'get_token.php';
-
-// TODO: make sure tag is one of the enum values 
-// Source: https://stackoverflow.com/questions/2350052/how-can-i-get-enum-possible-values-in-a-mysql-database
 
 
 // do actual work of inserting event into SQL
@@ -33,12 +30,11 @@ $stmt = $mysqli->prepare("INSERT INTO `events` (`date_time`, `event_name`, `user
 $date = DateTime::createFromFormat('Y-m-d\TH:i', (string) $json_obj['date'])->format('Y-m-d H:i:s');
 $event_name = (string) $json_obj['event_name'];
 $user = (string) $json_obj['user'];
-$tag = (string) $json_obj['tag']; //TODO: need to somehow have enum in html or check tag here
+$tag = (string) $json_obj['tag'];
 
 
 
-// //TODO: make sure this works
-// // echo "checking sql statement";
+// check query
 if(!$stmt){
 	$error = printf("Query Prep Failed: %s\n", $mysqli->error);
 
@@ -54,24 +50,10 @@ $stmt->bind_param('ssss', $date, $event_name, $user, $tag);
 // $stmt->bind_param('s', $tag);
 $stmt->execute();
 
-// TODO: other option with PDO
-// $dbh = new PDO('mysql:host=localhost;dbname=calendar', 'cal_client', 'client_version');
-
-// $sth = $dbh->prepare("INSERT INTO `events` (`date_time`, `event_name`, `username`, `tag`) VALUES ('2021-03-21 12:00:00','event',?,'sports')");
-// $sth->bindValue(1, $tag, PDO::PARAM_STR);
-// $sth->execute();
-
-
-// $sth->debugDumpParams();
-// echo "\n";
-
-// echo "statement executed";
-
 $stmt->close();
 // if reached here, great success
 echo json_encode(array(
     "success" => true
 ));
-// $sth->closeCursor();
 
 exit;

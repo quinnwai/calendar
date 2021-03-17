@@ -4,7 +4,7 @@ Vishal Agarwal --- 488422 --- avishal-cyber
 Quinn Wai Wong --- 475704 --- quinnwai
 
 # Info
-Site: http://ec2-18-219-113-131.us-east-2.compute.amazonaws.com/~qwong/m5_grp/login.php
+Site: http://ec2-18-219-113-131.us-east-2.compute.amazonaws.com/~qwong/m5_grp/calendar.php
 
 Username: firstlast
 
@@ -20,9 +20,12 @@ Group Events
 
 Tagging
 * Each calendar event has an associated tag 
-* Users can crete and edit tags using a dropdown menu for ease of use
+* Users can create and edit tags using a dropdown menu for ease of use
 
 Edit Event
 * Edit event auto-fills the information of the event to be changed
 * Disabled other buttons to ensure single events are edited at a time
 * Changed formatting of other buttons for usability
+
+Other
+* Add event clears out the event information after successfully keeping the event

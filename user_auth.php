@@ -45,7 +45,6 @@ if($count == 1 && password_verify($pwd_guess, $pwd_hash)){
     session_start();
 	ini_set("session.cookie_httponly", 1);
 	$_SESSION['username'] = $user;
-    $_SESSION['isUser'] = true; //TODO get rid of this
 	$_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32)); 
 
 	echo json_encode(array(
