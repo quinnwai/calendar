@@ -370,7 +370,6 @@ function initCalendar() {
 function displayCalendarData(currentMonth) {
     //flag to know when to stop.. when the month ends
     let flag = 0;
-	let c = 0;
 
     //first day of month so it can be filled with empty cells
     let firstDayOfMonth = currentMonth.getDateObject(1).getDay();
@@ -456,10 +455,13 @@ function loadEventData() {
         let month = parseInt(allEvents[i].dateTime.substring(5, 7));
         //currentMonth + 1 because it starts at 0, while sql starts at 1
         if (month == (currentMonth.month+1)) {
-            let day = parseInt(allEvents[i].dateTime.substring(8, 10))
-            let box =  day + currentMonth.getDateObject(1).getDay();
-            let r = Math.floor(box/7);
-            let c = (box % 7-1);
+            let day = (parseInt(allEvents[i].dateTime.substring(8, 10)));
+            let box =  day + parseInt(currentMonth.getDateObject(1).getDay()) - 1;
+            if (box < 0) {
+                box == 0;
+            }
+            let r = (Math.floor(box/7));
+            let c = (box % 7);
             let time = allEvents[i].dateTime.substring(11, 16);
             document.getElementById("day-display" + r + "," + c).innerHTML+= 
             "<p>"+ time + " - " + allEvents[i].name;
