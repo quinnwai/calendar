@@ -18,7 +18,7 @@ require 'get_token.php';
 
 
 // Prepared SQL statement
-$stmt = $mysqli->prepare("SELECT id, date_time, event_name, tag, group_name FROM events WHERE username = ? ORDER BY date_time ASC");
+$stmt = $mysqli->prepare("SELECT id, date_time, event_name, tag FROM events WHERE username = ? ORDER BY date_time ASC");
 if(!$stmt){
 	printf("Query Prep Failed: %s\n", $mysqli->error);
 	exit;
