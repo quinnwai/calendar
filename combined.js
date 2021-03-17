@@ -452,10 +452,9 @@ document.getElementsByClassName("tag_display")[0].addEventListener("click", func
 
 function loadEventData() {
     const eventData = { 'user': user, 'token': token };
-    // console.log("token:", token);
     allEvents = [];
-    console.log("load event data: "); //debug
-    console.log(eventData);
+    // console.log("load event data: "); //debug
+    // console.log(eventData);
     fetch('load_events.php', {
         // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
         headers: { 

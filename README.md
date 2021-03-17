@@ -10,7 +10,7 @@ Username: firstlast
 
 Password: namename
 
-You can always register your own user too :)
+Other users have usernames avishal and qwong... and you can always register your own user too :)
 
 # Creative Portion
 Group Events

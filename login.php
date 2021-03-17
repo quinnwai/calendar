@@ -95,7 +95,7 @@
     <br>
 </div>
 
+<script src="register.js"></script>
+<script src="combined.js"></script>
 </body>
-    <script src="register.js"></script>
-    <script src="combined.js"></script>
 </html>
