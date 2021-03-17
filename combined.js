@@ -480,21 +480,23 @@ function loadEventData() {
         let month = parseInt(allEvents[i].dateTime.substring(5, 7));
         //currentMonth + 1 because it starts at 0, while sql starts at 1
         if (month == (currentMonth.month+1)) {
+            //day for event
             let day = (parseInt(allEvents[i].dateTime.substring(8, 10)));
+            //which box contains the event... add empty boxes to day
             let box =  day + parseInt(currentMonth.getDateObject(1).getDay()) - 1;
-            if (box < 0) {
-                box == 0;
-            }
+            //row for event data
             let r = (Math.floor(box/7));
+            //column for event data
             let c = (box % 7);
             let time = allEvents[i].dateTime.substring(11, 16);
             document.getElementById("day-display" + r + "," + c).innerHTML+= 
             "<p>"+ time + " - " + allEvents[i].name;
             
+            //display tags based on global variable
             if (tag_display){
             document.getElementById("day-display" + r + "," + c).innerHTML+= "(" + allEvents[i].tag + ")";
             }
-            
+            //create edit, delete buttons
             document.getElementById("day-display" + r + "," + c).innerHTML+= "</p>"
             +"<button id = e" + allEvents[i].id + "> Edit </button>"
             +"<button id = d" + allEvents[i].id + " > Delete </button>";
