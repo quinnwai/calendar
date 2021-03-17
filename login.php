@@ -8,8 +8,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-
-
 <div id="box">
     <h1>Calendar</h1>
 </div>
@@ -18,19 +16,19 @@
     Your one stop for calendar and other scheduling needs. 
 </p>
 
-<!-- <div class="other_calendars">
-    <br>
-    <select name="calendar_options" id="calendar_options">
-  </select>
-    <button class="show_other_cal"> See someone else's calendar </button>
-    <br>
-</div> -->
-
 <div class="edit_event">
     <h2>Edit Event</h2>
     Name: <input type="text" id="edit_event_name"/>
     Date: <input type="datetime-local" id="edit_event_date"/>
-    Tag: <input type="text" id="edit_event_tag"/>
+    Tag: <select name="tags" id="edit_event_tag">
+        <option value="school">school</option>
+        <option value="work">work</option>
+        <option value="errands">errands</option>
+        <option value="social">social</option>
+        <option value="fun">fun</option>
+        <option value="other">other</option>
+        <option value="sports">sports</option>
+  </select>
     <button class="edit">Edit event</button>
 </div>
 
@@ -78,7 +76,15 @@
     <h2>Add Event</h2>
     Name: <input type="text" id="add_event_name"/>
     Date: <input type="datetime-local" id="add_event_date"/>
-    Tag: <input type="text" id="add_event_tag"/>
+    Tag: <select name="Tag" id="add_event_tag">
+        <option value="school">school</option>
+        <option value="work">work</option>
+        <option value="errands">errands</option>
+        <option value="social">social</option>
+        <option value="fun">fun</option>
+        <option value="other">other</option>
+        <option value="sports">sports</option>
+  </select>
     Group Members (Enter usernames with only commas seperating them): <input type="text" id="add_event_grp"/>
     <button class="add">Add event</button>
 </div>
