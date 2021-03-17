@@ -622,25 +622,3 @@ window.addEventListener('load', function () {
     alert("Event successfully added!");   
     });
 });
-
-/*              SHARE CALENDAR STUFF            */
-//TODO: SHOW ONCE USER HAS LOGGED IN AND DO ALL THIS ALSO AFTER THAT
-        // fetch('get_cals.php', {
-        //     // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
-        //     headers: { 
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json'
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify(data)
-        // })
-        // .then(res => res.json())
-        // .then(response => {
-        //     if(response.success){
-        //         updateCalendar()
-        //     }
-        //     else{
-        //         alert(response.message);
-        //     }
-        // });
-
