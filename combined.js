@@ -610,6 +610,11 @@ window.addEventListener('load', function () {
                 if (i === grp.length - 1) {
                 updateCalendar();
                 }
+
+                document.getElementById("add_event_name").value = "";
+                document.getElementById("add_event_date").value = "";
+                document.getElementById("add_event_tag").value = "school";
+                document.getElementById("add_event_grp").value = "";
             }
             else{
                 alert(response.message);
