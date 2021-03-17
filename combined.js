@@ -4,6 +4,7 @@ let token = "";
 /* ~~~~~~~~~~~Edit Event ~~~~~~~~~~~~ */
 function edit_event_form(id){
     $(".edit_event").show();
+    //disable all other buttons -- make sure no other action can be done so it is more secure and user friendly
 document.getElementsByClassName("add")[0].disabled = true;
 document.getElementById("next_month_btn").disabled = true;
 document.getElementById("prev_month_btn").disabled = true;
@@ -22,7 +23,7 @@ document.getElementsByClassName("logout")[0].disabled = true;
     .then(res => res.json())
     .then(response => {
     response.forEach(el => {
-        currentEvents.push({"id": el.id, "dateTime": el.date_time});
+        currentEvents.push({"id": el.id, "dateTime": el.date_time, "name": el.event_name, "tag": el.tag});
     });
     for(let i = 0; i<currentEvents.length; i++){
         //check if month matches, display event if it does
@@ -30,8 +31,14 @@ document.getElementsByClassName("logout")[0].disabled = true;
         //currentMonth + 1 because it starts at 0, while sql starts at 1
         if (month == (currentMonth.month+1)) {
             document.getElementById("d" + currentEvents[i].id).disabled = true;
+            //let edit button be enabled for the one that's pressed so he knows which one it is for ease of access
             if (id !== currentEvents[i].id) {
-            document.getElementById("e" + currentEvents[i].id).disabled = true;     
+            document.getElementById("e" + currentEvents[i].id).disabled = true;  
+            }
+            else {
+                document.getElementById("edit_event_name").value = currentEvents[i].name;
+                document.getElementById("edit_event_date").value = currentEvents[i].dateTime.replace(" ", "T");
+                document.getElementById("edit_event_tag").value =  currentEvents[i].tag;
             }
         }
     }
