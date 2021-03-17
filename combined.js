@@ -4,6 +4,39 @@ let token = "";
 /* ~~~~~~~~~~~Edit Event ~~~~~~~~~~~~ */
 function edit_event_form(id){
     $(".edit_event").show();
+document.getElementsByClassName("add")[0].disabled = true;
+document.getElementById("next_month_btn").disabled = true;
+document.getElementById("prev_month_btn").disabled = true;
+document.getElementsByClassName("logout")[0].disabled = true;
+    const eventData = { 'user': user, 'token': token };
+    let currentEvents = [];
+    fetch('load_events.php', {
+        // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(eventData)
+    })
+    .then(res => res.json())
+    .then(response => {
+    response.forEach(el => {
+        currentEvents.push({"id": el.id, "dateTime": el.date_time});
+    });
+    for(let i = 0; i<currentEvents.length; i++){
+        //check if month matches, display event if it does
+        let month = parseInt(currentEvents[i].dateTime.substring(5, 7));
+        //currentMonth + 1 because it starts at 0, while sql starts at 1
+        if (month == (currentMonth.month+1)) {
+            document.getElementById("d" + currentEvents[i].id).disabled = true;
+            if (id !== currentEvents[i].id) {
+            document.getElementById("e" + currentEvents[i].id).disabled = true;     
+            }
+        }
+    }
+    }
+);
 
     console.log(document.getElementsByClassName("edit_event")); //debug
     console.log(document.getElementsByClassName("edit_event")[0].getElementsByClassName("edit")[0]);
@@ -44,6 +77,10 @@ function edit_event_form(id){
                 document.getElementById("edit_event_name").value = "";
                 document.getElementById("edit_event_tag").value = "";
                 $(".edit_event").hide();
+                document.getElementsByClassName("add")[0].disabled = false;
+                document.getElementById("next_month_btn").disabled = false;
+                document.getElementById("prev_month_btn").disabled = false;
+                document.getElementsByClassName("logout")[0].disabled = false;
             }
             else{
                 alert(response.message);
@@ -604,3 +641,25 @@ window.addEventListener('load', function () {
     alert("Event successfully added!");   
     });
 });
+
+/*              SHARE CALENDAR STUFF            */
+//TODO: SHOW ONCE USER HAS LOGGED IN AND DO ALL THIS ALSO AFTER THAT
+        // fetch('get_cals.php', {
+        //     // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
+        //     headers: { 
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json'
+        //     },
+        //     method: "POST",
+        //     body: JSON.stringify(data)
+        // })
+        // .then(res => res.json())
+        // .then(response => {
+        //     if(response.success){
+        //         updateCalendar()
+        //     }
+        //     else{
+        //         alert(response.message);
+        //     }
+        // });
+
