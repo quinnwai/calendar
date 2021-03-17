@@ -52,7 +52,6 @@ function edit_event_form(id){
     });
 }
 
-
 //// Send login info to user_auth.php to validate user + create relevant variables ////
 let login_button = document.getElementsByClassName("user")[0].getElementsByClassName("login")[0];
 
@@ -73,13 +72,13 @@ login_button.addEventListener('click', function(){
     })
     .then(res => res.json())
     .then(response => {
-        console.log('Success:', response);
+        console.log('Success:', response); //debug
 
         //if successful login, alert and redirect to calendar page, else alert
         if(response.success){
             alert("welcome " + user + "!");
 
-            // TODO: show calendar things + fill events
+            // show calendar things + fill events
             updateCalendar();
 
             // hide login info, show add event info/tag display
@@ -87,6 +86,8 @@ login_button.addEventListener('click', function(){
             $(".registration").hide();
             $(".add_event").show();
             $(".toggle_tag").show();
+
+            // TODO: get rid of username and password?
 
             // create logout button
             const logout_button = document.createElement("button");
@@ -96,6 +97,8 @@ login_button.addEventListener('click', function(){
 
             //add event listener for logout button
             document.getElementsByClassName("logout")[0].addEventListener('click', function(){
+                alert("Successfully logged out!");
+                
                 // TODO: make sure it works
                 if(typeof user !== 'undefined'){
                     user = "";
@@ -105,7 +108,7 @@ login_button.addEventListener('click', function(){
                     token = "";
                 }
                 
-                // TODO: call on update calendar
+                // call on update calendar
                 updateCalendar();
 
                 //delete logout button and show old stuff again
@@ -113,6 +116,12 @@ login_button.addEventListener('click', function(){
                 $(".user").show();
                 $(".registration").show();
                 $(".toggle_tag").hide();
+                $(".add_event").hide();
+                $(".edit_event").hide();
+
+
+                //delete session variables
+                fetch('logout.php', {});
             });
 
 
@@ -256,8 +265,92 @@ function Month(year, month) {
 let currentMonth = new Month(2021, 2); //  March 2021
 let allEvents = [];
 
+//if session exists, load all user content
 document.addEventListener("DOMContentLoaded", function(){
-	initCalendar();
+    fetch('init.php', {
+        // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(response => {
+        console.log(response);
+        if(response.success){
+            // reset global variable in js
+            if(typeof user !== 'undefined'){
+                user = response.user;
+            }
+            else{
+                let user = response.user;
+            }
+            if(typeof token !== 'undefined'){
+                token = response.token;
+            }
+            else{
+                let token = response.token;
+            }
+            
+            console.log(user+ ", " + token);
+
+            // TODO: do all login-related calendar stuff
+            // show calendar things + fill events
+            initCalendar();
+
+            // hide login info, show add event info/tag display
+            $(".user").hide();
+            $(".registration").hide();
+            $(".add_event").show();
+            $(".toggle_tag").show();
+            $(".edit_event").hide();
+
+            // TODO: get rid of username and password?
+
+            // create logout button
+            const logout_button = document.createElement("button");
+            logout_button.className = "logout";
+            logout_button.appendChild(document.createTextNode("logout"));
+            document.body.appendChild(logout_button);
+
+            //add event listener for logout button
+            document.getElementsByClassName("logout")[0].addEventListener('click', function(){
+                alert("Successfully logged out!");
+                
+                // TODO: make sure it works
+                if(typeof user !== 'undefined'){
+                    user = "";
+                    
+                }
+                if(typeof token !== 'undefined'){
+                    token = "";
+                }
+                
+                // call on update calendar
+                updateCalendar();
+
+                //delete logout button and show old stuff again
+                $(".logout").remove();
+                $(".user").show();
+                $(".registration").show();
+                $(".toggle_tag").hide();
+                $(".add_event").hide();
+
+                //delete session variables
+                fetch('logout.php', {});
+            });
+        }
+        else {
+            //hide all calendar elements if necessary
+            $(".add_event").hide();
+            $(".edit_event").hide();
+            $(".toggle_tag").hide();
+
+            initCalendar();
+        }
+    });
+    console.log(user);
+    console.log(token);
 });
 
 //initialises calendar with 7 colums and 6 rows
@@ -397,7 +490,7 @@ function loadEventData() {
             //TODO: send out delete request
             console.log(el.id);
             const data = { 'user': user, 'id': el.id, 'token': token};
-            console.log(data); //debug
+            // console.log(data); //debug
 
             fetch('delete_event.php', {
                 //Add headers
@@ -463,7 +556,7 @@ function updateCalendar(){
 /*              Add event material                  */
 
 window.addEventListener('load', function () {
-    console.log(document.getElementsByClassName("add_event")); //debug
+    // console.log(document.getElementsByClassName("add_event")); //debug
     console.log(document.getElementsByClassName("add_event")[0].getElementsByClassName("add")[0]);
     let add_event_button = document.getElementsByClassName("add_event")[0].getElementsByClassName("add")[0]; //should be in a div
 
@@ -473,7 +566,7 @@ window.addEventListener('load', function () {
         let event_name = String(document.getElementById("add_event_name").value);
 
         // import { user, token } from user_auth.js; //TODO: make sure works w/ list thing
-        let user = 'firstlast'; //debug
+        // let user = 'firstlast'; //debug
 
         let tag = String(document.getElementById("add_event_tag").value); //need to figure out what's up with this
         let grp = String(document.getElementById("add_event_grp").value).split(",");

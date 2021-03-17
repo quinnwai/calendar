@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<?php require 'init.php';?>
 
 <div id="box">
     <h1>Calendar</h1>
@@ -94,6 +93,6 @@
     <!-- <script src="user_auth.js"></script>   -->
     <script src="register.js"></script>
     <script src="combined.js"></script>
-    <script src="init.js"></script>
+    <!-- <script src="init.js"></script> -->
     <!-- <script src="calendar.js"></script> -->
 </html>
