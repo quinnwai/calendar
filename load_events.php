@@ -1,6 +1,6 @@
 <?php
-
-
+session_start();
+ini_set("session.cookie_httponly", 1);
 header("Content-Type: application/json"); // set the MIME Type to application/json
 
 //Because you are posting the data via fetch(), php has to retrieve it elsewhere.
@@ -11,8 +11,8 @@ $json_obj = json_decode($json_str, true);
 //Access json object (associative array)
 $user = (string) $json_obj['user'];
 
-// // csrf vibe check
-// require 'get_token.php';
+// csrf vibe check
+require 'get_token.php';
 
 require 'database.php'; 
 

@@ -449,6 +449,8 @@ function loadEventData() {
     const eventData = { 'user': user, 'token': token };
     // console.log("token:", token);
     allEvents = [];
+    console.log("load event data: "); //debug
+    console.log(eventData);
     fetch('load_events.php', {
         // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
         headers: { 
@@ -537,14 +539,12 @@ function loadEventData() {
 document.getElementById("next_month_btn").addEventListener("click", function(event){
 	currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-	alert("The new month is "+ (currentMonth.month + 1) +" "+currentMonth.year);
 }, false);
 
 // Change the month when the "prev" button is pressed
 document.getElementById("prev_month_btn").addEventListener("click", function(event){
 	currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-	alert("The new month is "+ (currentMonth.month + 1) +" "+currentMonth.year);
 }, false);
 
 
