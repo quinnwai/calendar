@@ -38,24 +38,21 @@ document.getElementsByClassName("logout")[0].disabled = true;
     }
 );
 
-    console.log(document.getElementsByClassName("edit_event")); //debug
-    console.log(document.getElementsByClassName("edit_event")[0].getElementsByClassName("edit")[0]);
+    // console.log(document.getElementsByClassName("edit_event")); //debug
+    // console.log(document.getElementsByClassName("edit_event")[0].getElementsByClassName("edit")[0]);
     let edit_event_button = document.getElementsByClassName("edit_event")[0].getElementsByClassName("edit")[0]; //should be in a div
 
     edit_event_button.addEventListener('click', function(){
         //assume there are boxes for id 
-        let date = String(document.getElementById("edit_event_date").value); // TODO: make sure date anad time works
+        let date = String(document.getElementById("edit_event_date").value); 
         let event_name = String(document.getElementById("edit_event_name").value);
 
-        // import { user, token } from user_auth.js; //TODO: make sure works w/ list thing
-
-        let tag = String(document.getElementById("edit_event_tag").value); //need to figure out what's up with this
+        let tag = String(document.getElementById("edit_event_tag").value);
         
-        // let id = Integer(edit_event_button.id);
 
         const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'id': id, 'token': token };
         // const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'id': id}; //debug
-        console.log(data); //debug
+        // console.log(data); //debug
         fetch('edit_event.php', {
             //Add headers
             // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
@@ -109,7 +106,7 @@ login_button.addEventListener('click', function(){
     })
     .then(res => res.json())
     .then(response => {
-        console.log('Success:', response); //debug
+        // console.log('Success:', response); //debug
 
         //if successful login, alert and redirect to calendar page, else alert
         if(response.success){
@@ -124,8 +121,6 @@ login_button.addEventListener('click', function(){
             $(".add_event").show();
             $(".toggle_tag").show();
 
-            // TODO: get rid of username and password?
-
             // create logout button
             const logout_button = document.createElement("button");
             logout_button.className = "logout";
@@ -136,7 +131,6 @@ login_button.addEventListener('click', function(){
             document.getElementsByClassName("logout")[0].addEventListener('click', function(){
                 alert("Successfully logged out!");
                 
-                // TODO: make sure it works
                 if(typeof user !== 'undefined'){
                     user = "";
                     
@@ -162,14 +156,8 @@ login_button.addEventListener('click', function(){
             });
 
 
-            /* TODO: do all calendar-related stuff including...
-                - create logout button w/ event listener
-                - show add/remove/edit event options
-                - hide all login stuff
-            */
-
-            // export tokens and username for other files (TODO: make sure works)
-            token = response.token; // TODO: make sure this is accesible outside of the things
+            // export tokens and username for other files 
+            token = response.token; 
             // export {user, token};
         }
         else {
@@ -313,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function(){
     })
     .then(res => res.json())
     .then(response => {
-        console.log(response);
+        // console.log(response);
         if(response.success){
             // reset global variable in js
             if(typeof user !== 'undefined'){
@@ -329,9 +317,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 let token = response.token;
             }
             
-            console.log(user+ ", " + token);
 
-            // TODO: do all login-related calendar stuff
             // show calendar things + fill events
             initCalendar();
 
@@ -341,8 +327,6 @@ document.addEventListener("DOMContentLoaded", function(){
             $(".add_event").show();
             $(".toggle_tag").show();
             $(".edit_event").hide();
-
-            // TODO: get rid of username and password?
 
             // create logout button
             const logout_button = document.createElement("button");
@@ -354,7 +338,6 @@ document.addEventListener("DOMContentLoaded", function(){
             document.getElementsByClassName("logout")[0].addEventListener('click', function(){
                 alert("Successfully logged out!");
                 
-                // TODO: make sure it works
                 if(typeof user !== 'undefined'){
                     user = "";
                     
@@ -386,8 +369,8 @@ document.addEventListener("DOMContentLoaded", function(){
             initCalendar();
         }
     });
-    console.log(user);
-    console.log(token);
+    // console.log(user);
+    // console.log(token);
 });
 
 //initialises calendar with 7 colums and 6 rows
@@ -456,17 +439,11 @@ function displayCalendarData(currentMonth) {
 
 let tag_display = true;
 
-//	Code for fetch request... TODO: make sure to import user and token variable
 document.getElementsByClassName("tag_display")[0].addEventListener("click", function(event){
 	tag_display = !tag_display // Previous month would be currentMonth.prevMonth()
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
 	// alert("The tag display mode has been changed");
 }, false);
-
-// TODO FIXME
-// function HandleEditSubmit(event) {
-//     console.log(event.target);
-// }
 
 function loadEventData() {
     const eventData = { 'user': user, 'token': token };
@@ -519,15 +496,14 @@ function loadEventData() {
         if (month == (currentMonth.month+1)) {
 
             document.getElementById("e" +el.id).addEventListener("click", function(event){
-                console.log("edit entered");
+                // console.log("edit entered");
                 edit_event_form(el.id);
             }, false);
             // document.getElementById("e" +allEvents[i].id).addEventListener("click", HandleEditSubmit);
             
             document.getElementById("d" +el.id).addEventListener("click", function(event){
 
-            //TODO: send out delete request
-            console.log(el.id);
+            // console.log(el.id);
             const data = { 'user': user, 'id': el.id, 'token': token};
             // console.log(data); //debug
 
@@ -596,15 +572,14 @@ function updateCalendar(){
 
 window.addEventListener('load', function () {
     // console.log(document.getElementsByClassName("add_event")); //debug
-    console.log(document.getElementsByClassName("add_event")[0].getElementsByClassName("add")[0]);
+    // console.log(document.getElementsByClassName("add_event")[0].getElementsByClassName("add")[0]);
     let add_event_button = document.getElementsByClassName("add_event")[0].getElementsByClassName("add")[0]; //should be in a div
 
     add_event_button.addEventListener('click', function(){
         //assume there are boxes for id 
-        let date = String(document.getElementById("add_event_date").value); // TODO: make sure date anad time works
+        let date = String(document.getElementById("add_event_date").value); 
         let event_name = String(document.getElementById("add_event_name").value);
 
-        // import { user, token } from user_auth.js; //TODO: make sure works w/ list thing
         // let user = 'firstlast'; //debug
 
         let tag = String(document.getElementById("add_event_tag").value); //need to figure out what's up with this
@@ -612,9 +587,8 @@ window.addEventListener('load', function () {
         grp.push(user);
 
         for(let i = 0; i<grp.length; i++) {
-        // const data = { 'date': date, 'event_name': event_name, 'user': user, 'tag': tag, 'token':token };
         const data = { 'date': date, 'event_name': event_name, 'user': grp[i], 'tag': tag, 'token': token}; //debug
-        console.log(data); //debug
+        // console.log(data); //debug
         fetch('add_event.php', {
             //Add headers
             // Sourced from: https://stackoverflow.com/questions/37269808/react-js-uncaught-in-promise-syntaxerror-unexpected-token-in-json-at-posit
